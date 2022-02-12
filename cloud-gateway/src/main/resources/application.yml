@@ -1,0 +1,17 @@
+server:
+  port: 9191
+  
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+      - id: TICKET-SERVICE
+        uri: lb://TICKET-SERVICE
+        predicates:
+        - Path=/ticket
+      - id: LOGIN-SERVICE
+        uri: lb://LOGIN-SERVICE
+        predicates:
+        - Path=/login
