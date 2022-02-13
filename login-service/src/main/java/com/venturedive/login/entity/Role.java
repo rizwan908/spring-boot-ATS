@@ -9,8 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +23,4 @@ public class Role {
 	private Long id;
 
 	private String name;
-
-	@ManyToMany(mappedBy = "roles")
-	private Collection<User> users;
 }

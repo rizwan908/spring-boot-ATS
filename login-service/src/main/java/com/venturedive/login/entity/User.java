@@ -1,8 +1,10 @@
 package com.venturedive.login.entity;
 
-import java.util.Collection;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,16 +30,25 @@ public class User {
 
 	private String password;
 
-	@ManyToMany
-	@JoinTable(name = "user_role",
-		joinColumns = @JoinColumn(
-			name = "user_id",
-			referencedColumnName = "id"
-		),
-		inverseJoinColumns = @JoinColumn(
-			name = "role_id",
-			referencedColumnName = "id"
-		))
-	private Collection<Role> roles;
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JoinTable(name = "user_role",
+//		joinColumns = @JoinColumn(
+//			name = "user_id",
+//			referencedColumnName = "id"
+//		),
+//		inverseJoinColumns = @JoinColumn(
+//			name = "role_id",
+//			referencedColumnName = "id"
+//		))
+	
+    
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "USER_ROLES",
+            joinColumns = {
+            @JoinColumn(name = "user_id")
+            },
+            inverseJoinColumns = {
+            @JoinColumn(name = "role_id") })
+	private Set<Role> roles;
 
 }
