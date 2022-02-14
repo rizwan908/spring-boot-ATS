@@ -11,6 +11,7 @@ spring:
         uri: lb://TICKET-SERVICE
         predicates:
         - Path=/ticket
+        
       - id: LOGIN-SERVICE
         uri: lb://LOGIN-SERVICE
         predicates:
