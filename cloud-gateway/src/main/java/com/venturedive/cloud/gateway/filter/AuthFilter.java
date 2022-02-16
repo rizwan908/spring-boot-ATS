@@ -1,8 +1,7 @@
 package com.venturedive.cloud.gateway.filter;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.naming.AuthenticationException;
 
@@ -35,21 +34,8 @@ public class AuthFilter implements GlobalFilter {
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 		ServerHttpRequest request = exchange.getRequest();
 
-		final List<String> apiEndpoints = List.of("/login");
-
-		Predicate<ServerHttpRequest> isApiSecured = r -> apiEndpoints.stream()
-				.noneMatch(uri -> r.getURI().getPath().contains(uri));
-
-		if (isApiSecured.test(request)) {
-			if (!request.getHeaders().containsKey("Authorization")) {
-				ServerHttpResponse response = exchange.getResponse();
-				response.setStatusCode(HttpStatus.UNAUTHORIZED);
-
-				return response.setComplete();
-			}
-
+		if (request.getHeaders().containsKey("Authorization")) {
 			String token = request.getHeaders().getOrEmpty("Authorization").get(0);
-
 			if (token.startsWith("Bearer")) {
 				token = token.substring(7);
 			}
@@ -66,7 +52,12 @@ public class AuthFilter implements GlobalFilter {
 			UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(claims.getSubject(),
 					null, (Collection<? extends GrantedAuthority>) claims.get("roles"));
 			SecurityContextHolder.getContext().setAuthentication(authReq);
-			exchange.getRequest().mutate().header("id", String.valueOf(claims.get("id"))).build();
+			exchange.getRequest().mutate().header("id", String.valueOf(claims.get("id")))
+					.header("user", (String) authReq.getPrincipal())
+					.header("roles",
+							authReq.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+									.collect(Collectors.joining(",")))
+					.build();
 		}
 
 		return chain.filter(exchange);

@@ -1,0 +1,54 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ConfigServerApplication<config-server>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.venturedive.configserver.ConfigServerApplication",
+            "projectName": "config-server",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ServiceRegistryApplication<service-registry>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.venturedive.service.registry.ServiceRegistryApplication",
+            "projectName": "service-registry",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-CloudGatewayApplication<cloud-gateway>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.venturedive.cloud.gateway.CloudGatewayApplication",
+            "projectName": "cloud-gateway",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-LoginServiceApplication<login-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.venturedive.login.LoginServiceApplication",
+            "projectName": "login-service",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-TicketServiceApplication<ticket-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.venturedive.ticket.TicketServiceApplication",
+            "projectName": "ticket-service",
+            "args": ""
+        }
+    ]
+}
