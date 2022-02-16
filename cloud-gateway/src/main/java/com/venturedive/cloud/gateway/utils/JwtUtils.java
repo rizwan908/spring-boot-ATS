@@ -17,7 +17,7 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
-public class JwtUtil {
+public class JwtUtils {
 	@Value("${jwt.secret}")
 	private String jwtSecret;
 

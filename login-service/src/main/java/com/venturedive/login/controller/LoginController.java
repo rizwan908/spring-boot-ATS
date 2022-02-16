@@ -61,10 +61,10 @@ public class LoginController {
 
 	@GetMapping("/get/{username}")
 	public ResponseEntity<UserDetails> authenticate(@RequestParam String username) {
-		return new ResponseEntity<UserDetails>(userService.loadUserByUsername(username), HttpStatus.OK);
+		return new ResponseEntity<UserDetails>(userService.findByUsername(username).block(), HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasRole('admin')")
+	@PreAuthorize("hasRole('ticket')")
 	@GetMapping("/hello")
 	public ResponseEntity<String> hello() {
 		return new ResponseEntity<String>("hello", HttpStatus.OK);
