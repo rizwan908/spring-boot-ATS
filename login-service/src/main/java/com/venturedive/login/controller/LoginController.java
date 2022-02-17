@@ -4,22 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.venturedive.login.dao.UserDto;
+import com.venturedive.login.dto.UserDto;
 import com.venturedive.login.entity.User;
 import com.venturedive.login.repository.UserRepository;
-import com.venturedive.login.service.UserService;
 import com.venturedive.login.utils.JwtUtils;
 
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
 
 @RestController
 @Slf4j
@@ -27,9 +24,9 @@ public class LoginController {
 
 	@Autowired
 	private JwtUtils jwtUtil;
-
-	@Autowired
-	private UserService userService;
+//
+//	@Autowired
+//	private UserService userService;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -59,14 +56,9 @@ public class LoginController {
 		}
 	}
 
-	@GetMapping("/get/{username}")
-	public ResponseEntity<UserDetails> authenticate(@RequestParam String username) {
-		return new ResponseEntity<UserDetails>(userService.findByUsername(username).block(), HttpStatus.OK);
-	}
-
-	@PreAuthorize("hasRole('ticket')")
-	@GetMapping("/hello")
-	public ResponseEntity<String> hello() {
-		return new ResponseEntity<String>("hello", HttpStatus.OK);
-	}
+	@PreAuthorize("hasAuthority('ats')")
+	@GetMapping("/hello")	
+	public Mono<ResponseEntity<String>> userOrAdmin() {
+        return Mono.just(ResponseEntity.ok("hello"));
+    }
 }

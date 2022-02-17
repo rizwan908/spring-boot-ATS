@@ -47,4 +47,13 @@ public class JwtUtils {
 		}
 		return null;
 	}
+	
+
+    public String getUsernameFromToken(String token) {
+        return getClaims(token).getSubject();
+    }
+
+	public Boolean validateToken(String authToken) {
+		return true;
+	}
 }

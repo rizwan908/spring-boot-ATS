@@ -1,10 +1,10 @@
-package com.venturedive.login.dao;
+package com.venturedive.cloud.gateway.dto;
 
-public class UserDao {
+public class UserDto {
     private String username;
     private String password;
 
-    public UserDao(String username, String password) {
+    public UserDto(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -24,5 +24,4 @@ public class UserDao {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.venturedive.login.dao;
+package com.venturedive.login.dto;
 
 public class UserDto {
     private String username;
