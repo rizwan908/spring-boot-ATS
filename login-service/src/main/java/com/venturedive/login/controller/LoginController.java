@@ -24,41 +24,38 @@ public class LoginController {
 
 	@Autowired
 	private JwtUtils jwtUtil;
-//
-//	@Autowired
-//	private UserService userService;
 
 	@Autowired
 	private UserRepository userRepository;
 
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody UserDto userDto) {
+	public Mono<ResponseEntity<String>> login(@RequestBody UserDto userDto) {
 		if (userDto.getUsername() == null || userDto.getPassword() == null) {
 			String message = "username or password missing";
 			LoginController.log.info(message);
-			return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
+			return Mono.just(ResponseEntity.badRequest().body(message));
 		}
 
 		User user = userRepository.findByUsernameAndPassword(userDto.getUsername(), userDto.getPassword());
 		if (user == null) {
 			String message = "user not valid";
 			LoginController.log.info(message);
-			return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
+			return Mono.just(ResponseEntity.badRequest().body(message));
 		}
 
 		try {
 			String token = jwtUtil.generateToken(user);
-			return new ResponseEntity<String>(token, HttpStatus.OK);
+			return Mono.just(ResponseEntity.ok(token));
 		} catch (JsonProcessingException e) {
 			String message = "failed to authenticate user";
 			LoginController.log.error(message, e);
-			return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
+			return Mono.just(ResponseEntity.badRequest().body(message));
 		}
 	}
 
-	@PreAuthorize("hasAuthority('ats')")
+	@PreAuthorize("hasAuthority('test')")
 	@GetMapping("/hello")	
-	public Mono<ResponseEntity<String>> userOrAdmin() {
-        return Mono.just(ResponseEntity.ok("hello"));
+	public Mono<ResponseEntity<String>> testEndpoint() {
+        return Mono.just(ResponseEntity.ok("hello test"));
     }
 }

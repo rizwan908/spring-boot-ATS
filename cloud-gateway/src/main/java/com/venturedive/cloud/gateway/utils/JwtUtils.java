@@ -1,15 +1,10 @@
 package com.venturedive.cloud.gateway.utils;
 
-
-import java.util.Collection;
-
 import javax.naming.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -20,16 +15,6 @@ import io.jsonwebtoken.UnsupportedJwtException;
 public class JwtUtils {
 	@Value("${jwt.secret}")
 	private String jwtSecret;
-
-	public Claims getClaims(final String token) {
-		try {
-			Claims body = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
-			return body;
-		} catch (Exception e) {
-			System.out.println(e.getMessage() + " => " + e);
-		}
-		return null;
-	}
 
 	public void validateToken(final String token) throws AuthenticationException {
 		try {
