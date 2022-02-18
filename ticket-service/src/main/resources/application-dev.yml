@@ -1,6 +1,11 @@
+spring:
+  config:
+    name: dev
+
 server:
   port: 9002
-  
-spring:
-  application:
-    name: TICKET-SERVICE
+
+jwt:
+  secret: mysecretkeyforjwt
+  token:
+    validity: 604800000

@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: TICKET-SERVICE
+  profiles:
+    active: dev, mysql
+
