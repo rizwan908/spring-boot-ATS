@@ -29,10 +29,10 @@ public class AuthFilter implements GlobalFilter {
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 		ServerHttpRequest request = exchange.getRequest();
-		
+
 		if (request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
 			String token = request.getHeaders().getOrEmpty(HttpHeaders.AUTHORIZATION).get(0);
-			
+
 			if (token.startsWith("Bearer")) {
 				token = token.substring(7);
 			}
@@ -48,5 +48,4 @@ public class AuthFilter implements GlobalFilter {
 		}
 		return chain.filter(exchange);
 	}
-
 }
