@@ -9,9 +9,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.venturedive.ticket</groupId>
 	<artifactId>ticket-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>ticket-service</name>
 	<description>Ticket service</description>
 	<packaging>jar</packaging>

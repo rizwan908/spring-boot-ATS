@@ -9,9 +9,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.venturedive</groupId>
 	<artifactId>cloud-gateway</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>cloud-gateway</name>
 	<description>Cloud gateway</description>
 	<packaging>jar</packaging>

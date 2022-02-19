@@ -9,9 +9,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.venturedive</groupId>
 	<artifactId>login-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>login-service</name>
 	<description>Login service</description>
 	<packaging>jar</packaging>
