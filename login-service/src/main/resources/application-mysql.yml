@@ -1,0 +1,10 @@
+spring:
+  config:
+    name: mysql
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:myDb}
+    username: root
+    password: eiquaengie2fei7eith6OV9eiChaephe
+  jpa:
+    hibernate:
+      ddl-auto: update

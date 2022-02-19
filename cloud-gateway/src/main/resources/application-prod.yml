@@ -1,0 +1,6 @@
+spring:
+  config:
+    name: prod
+
+server:
+  port: 0

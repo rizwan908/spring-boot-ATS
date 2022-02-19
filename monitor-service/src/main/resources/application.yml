@@ -1,6 +1,5 @@
-server:
-  port: 0
-  
 spring:
   application:
     name: MONITOR-SERVICE
+  profiles:
+    active: dev, mysql

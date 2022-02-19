@@ -1,0 +1,11 @@
+spring:
+  config:
+    name: dev
+
+server:
+  port: 9003
+
+jwt:
+  secret: mysecretkeyforjwt
+  token:
+    validity: 604800000

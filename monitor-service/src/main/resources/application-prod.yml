@@ -1,0 +1,11 @@
+spring:
+  config:
+    name: prod
+
+server:
+  port: 0
+
+jwt:
+  secret: mysecretkeyforjwt
+  token:
+    validity: 86400000

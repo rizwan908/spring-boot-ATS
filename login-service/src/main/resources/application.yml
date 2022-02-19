@@ -1,6 +1,5 @@
-server:
-  port: 0
-
 spring:
   application:
     name: LOGIN-SERVICE
+  profiles:
+    active: dev, mysql

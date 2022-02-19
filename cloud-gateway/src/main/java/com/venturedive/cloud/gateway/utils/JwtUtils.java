@@ -31,5 +31,4 @@ public class JwtUtils {
 			throw new AuthenticationException("JWT claims string is empty.");
 		}
 	}
-
 }
