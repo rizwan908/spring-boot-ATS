@@ -3,8 +3,8 @@ spring:
     name: mysql
   datasource:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:myDb}
-    username: root
-    password: eiquaengie2fei7eith6OV9eiChaephe
+    username: rizwan
+    password: P@ssw0rd1
   jpa:
     hibernate:
       ddl-auto: update
