@@ -2,15 +2,12 @@ package com.venturedive.login.utils;
 
 import java.sql.Date;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.venturedive.login.entity.User;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.venturedive.login.entity.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -24,9 +21,6 @@ public class JwtUtils {
 
 	@Value("${jwt.token.validity}")
 	private long tokenValidity;
-
-	@Autowired
-	private Jackson2ObjectMapperBuilder mapperBuilder;
 
 	public String generateToken(User user) throws JsonProcessingException {
 		Claims claims = Jwts.claims().setSubject(user.getUsername());
