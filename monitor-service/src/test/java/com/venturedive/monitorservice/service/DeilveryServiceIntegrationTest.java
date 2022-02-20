@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.venturedive.monitorservice.entity.CustomerType;
 import com.venturedive.monitorservice.entity.DeliveryDetail;
@@ -20,7 +20,7 @@ import com.venturedive.monitorservice.repository.TicketRepository;
 import com.venturedive.monitorservice.strategies.EstimatedExceedExpectedStrategy;
 import com.venturedive.monitorservice.strategies.ExpectedTimePassedStrategy;
 
-@TestPropertySource(locations = "classpath:application-integrationtest.properties")
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class DeilveryServiceIntegrationTest {

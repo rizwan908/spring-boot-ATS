@@ -1,36 +1,32 @@
 package com.venturedive.ticket.controller;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.venturedive.ticket.entity.Ticket;
 import com.venturedive.ticket.entity.TicketPriority;
 import com.venturedive.ticket.service.TicketService;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest
 public class TicketControllerTest {
 
-	@Autowired
-	private MockMvc mockMvc;
-
-	@MockBean
+	@Mock
 	TicketService ticketService;
+
+	@InjectMocks
+	TicketController ticketController;
 
 	@Test
 	void testGetDeliveryTickets() throws Exception {
@@ -49,13 +45,20 @@ public class TicketControllerTest {
 		ticket1.setTicketPriority(TicketPriority.HIGH);
 
 		Mockito.when(ticketService.getTickets()).thenReturn(Arrays.asList(ticket1, ticket2));
+		List<Ticket> ticketsList = ticketController.getDeliveryTickets().block().getBody();
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/ticket").contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
-				.andExpect(MockMvcResultMatchers.jsonPath("$[0].ticketPriority", is("HIGH")))
-				.andExpect(MockMvcResultMatchers.jsonPath("$[0].active", is(true)));
-
+		assertNotNull(ticketsList);
+		assertEquals(2, ticketsList.size());
+		assertEquals(ticket1, ticketsList.get(0));
+		assertEquals(ticket2, ticketsList.get(1));
 	}
 
+	@Test
+	void testGetDeliveryTicketsEmptyList() throws Exception {
+		Mockito.when(ticketService.getTickets()).thenReturn(Collections.emptyList());
+		List<Ticket> ticketsList = ticketController.getDeliveryTickets().block().getBody();
+
+		assertNotNull(ticketsList);
+		assertEquals(0, ticketsList.size());
+	}
 }

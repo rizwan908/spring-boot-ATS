@@ -1,0 +1,17 @@
+spring:
+  config:
+    name: test 
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  datasource:
+    url: jdbc:h2:mem:${random.uuid}
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    
+scheduling:
+  enabled:false
+    
