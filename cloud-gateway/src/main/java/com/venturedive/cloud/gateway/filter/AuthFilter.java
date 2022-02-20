@@ -33,11 +33,10 @@ public class AuthFilter implements GlobalFilter {
 		if (request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
 			String token = request.getHeaders().getOrEmpty(HttpHeaders.AUTHORIZATION).get(0);
 
-			if (token.startsWith("Bearer")) {
-				token = token.substring(7);
-			}
 			try {
-				jwtUtil.validateToken(token);
+				if (!token.startsWith("Bearer"))
+					throw new AuthenticationException("bad token");
+				jwtUtil.validateToken(token.substring(7));
 			} catch (AuthenticationException e) {
 				ServerHttpResponse response = exchange.getResponse();
 				DataBufferFactory factory = response.bufferFactory();
@@ -46,6 +45,7 @@ public class AuthFilter implements GlobalFilter {
 				return response.writeWith(Mono.just(buffer));
 			}
 		}
+
 		return chain.filter(exchange);
 	}
 }
